@@ -50,6 +50,7 @@ dependencies:
 
   # --- Drone
   web_socket_channel: ^3.0.3    # Real-time drone communication
+  carousel_slider: ^5.0.0
 
 
 dev_dependencies:
@@ -69,6 +70,7 @@ flutter:
     - assets/images/on_boarding_images/
     - assets/images/animations/
     - assets/images/user/
+    - assets/images/trending_news/
     - assets/icons/categories/
     - assets/icons/payment_methods/
     - assets/logos/

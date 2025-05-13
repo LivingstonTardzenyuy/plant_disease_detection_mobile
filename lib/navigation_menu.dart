@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:plant_disease_detection_mobile/core/constants/colors.dart';
-import 'package:plant_disease_detection_mobile/core/utils/helpers/helper_functions.dart';
+import 'package:plant_disease_detection_mobile/features/home/screens/home/home_screen.dart';
+import 'package:plant_disease_detection_mobile/features/personalization/screens/settings/settings_screen.dart';
+import 'package:plant_disease_detection_mobile/utils/constants/colors.dart';
+import 'package:plant_disease_detection_mobile/utils/helpers/helper_functions.dart';
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
@@ -19,15 +21,16 @@ class NavigationMenu extends StatelessWidget {
           backgroundColor: isDark ? TColors.black : TColors.white,
           indicatorColor:
               isDark
-                  ? TColors.white.withValues(alpha: 0.1)
-                  : TColors.black.withValues(alpha: 0.1),
+                  ? TColors.primary.withValues(alpha: 0.2)
+                  : TColors.primary.withValues(alpha: 0.2),
           selectedIndex: controller.selectedIndex.value,
           onDestinationSelected:
               (index) => controller.selectedIndex.value = index,
           destinations: [
             NavigationDestination(icon: Icon(Iconsax.home), label: "Home"),
-            NavigationDestination(icon: Icon(Iconsax.shop), label: "Store"),
-            NavigationDestination(icon: Icon(Iconsax.heart), label: "Wishlist"),
+            NavigationDestination(icon: Icon(Iconsax.scan_barcode), label: "Scan"),
+            NavigationDestination(icon: Icon(Iconsax.airplane), label: "Drone"),
+            NavigationDestination(icon: Icon(Iconsax.document_text), label: "Report"),
             NavigationDestination(icon: Icon(Iconsax.user), label: "Profile"),
           ],
         );
@@ -44,18 +47,17 @@ class NavigationMenuController extends GetxController {
 
   final Rx<int> selectedIndex = 0.obs;
   final screens = [
+    HomeScreen(),
     Scaffold(
-      body: SingleChildScrollView(child: Column(children: [Text("Home")])),
+      body: SingleChildScrollView(child: Column(children: [Text("Scan")])),
     ),
     Scaffold(
-      body: SingleChildScrollView(child: Column(children: [Text("Capture")])),
+      body: SingleChildScrollView(child: Column(children: [Text("Drone")])),
     ),
     Scaffold(
-      body: SingleChildScrollView(child: Column(children: [Text("History")])),
+      body: SingleChildScrollView(child: Column(children: [Text("Report")])),
     ),
-    Scaffold(
-      body: SingleChildScrollView(child: Column(children: [Text("Profile")])),
-    ),
+    const SettingsScreen(),
 
   ];
 }
