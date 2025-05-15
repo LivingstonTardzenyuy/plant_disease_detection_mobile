@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:plant_disease_detection_mobile/features/home/screens/home/home_screen.dart';
 import 'package:plant_disease_detection_mobile/features/personalization/screens/settings/settings_screen.dart';
+import 'package:plant_disease_detection_mobile/features/report/screens/report_screen.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/colors.dart';
 import 'package:plant_disease_detection_mobile/utils/helpers/helper_functions.dart';
 
@@ -28,10 +29,16 @@ class NavigationMenu extends StatelessWidget {
               (index) => controller.selectedIndex.value = index,
           destinations: [
             NavigationDestination(icon: Icon(Iconsax.home), label: "Home"),
-            NavigationDestination(icon: Icon(Iconsax.scan_barcode), label: "Scan"),
+            NavigationDestination(
+              icon: Icon(Iconsax.scan_barcode),
+              label: "Scan",
+            ),
             NavigationDestination(icon: Icon(Iconsax.airplane), label: "Drone"),
-            NavigationDestination(icon: Icon(Iconsax.document_text), label: "Report"),
-            NavigationDestination(icon: Icon(Iconsax.user), label: "Profile"),
+            NavigationDestination(
+              icon: Icon(Iconsax.document_text),
+              label: "Report",
+            ),
+            NavigationDestination(icon: Icon(Iconsax.user), label: "Account"),
           ],
         );
       }),
@@ -47,17 +54,10 @@ class NavigationMenuController extends GetxController {
 
   final Rx<int> selectedIndex = 0.obs;
   final screens = [
-    HomeScreen(),
-    Scaffold(
-      body: SingleChildScrollView(child: Column(children: [Text("Scan")])),
-    ),
-    Scaffold(
-      body: SingleChildScrollView(child: Column(children: [Text("Drone")])),
-    ),
-    Scaffold(
-      body: SingleChildScrollView(child: Column(children: [Text("Report")])),
-    ),
+    const HomeScreen(),
+    const Center(child: Text(("Scan"))),
+    const Center(child: Text("Drone")),
+    const ReportScreen(),
     const SettingsScreen(),
-
   ];
 }
