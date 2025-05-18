@@ -34,6 +34,7 @@ class SettingsScreen extends StatelessWidget {
                         context,
                       ).textTheme.headlineMedium!.apply(color: TColors.white),
                     ),
+                    background: Colors.transparent,
                   ),
 
                   /// --- User Profile Card

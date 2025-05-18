@@ -14,6 +14,8 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leadingIcon,
     this.actions,
     this.leadingOnPressed,
+    this.background = TColors.primary,
+    this.bottom,
   });
 
   final Widget? title;
@@ -21,35 +23,40 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
   final IconData? leadingIcon;
   final List<Widget>? actions;
   final VoidCallback? leadingOnPressed;
+  final Color? background;
+  final PreferredSizeWidget? bottom;
 
   @override
   Widget build(BuildContext context) {
     final bool isDark = THelperFunctions.isDarkMode(context);
     return AppBar(
       automaticallyImplyLeading: false,
-      backgroundColor: TColors.primary,
-      leading: showBackArrow
-          ? IconButton(
-              onPressed: () => Get.back(),
-              icon: Icon(
-                Iconsax.arrow_left,
-                color: isDark ? TColors.white : TColors.black,
-              ),
-            )
-          : leadingIcon != null
+      backgroundColor: background,
+      leading:
+          showBackArrow
               ? IconButton(
-                  onPressed: leadingOnPressed,
-                  icon: Icon(
-                    leadingIcon,
-                    color: isDark ? TColors.white : TColors.black,
-                  ),
-                )
+                onPressed: () => Get.back(),
+                icon: Icon(
+                  Iconsax.arrow_left,
+                  // color: isDark ? TColors.white : TColors.black,
+                  color: TColors.white
+                ),
+              )
+              : leadingIcon != null
+              ? IconButton(
+                onPressed: leadingOnPressed,
+                icon: Icon(
+                  leadingIcon,
+                  color: isDark ? TColors.white : TColors.black,
+                ),
+              )
               : null,
       title: title,
       actions: actions,
+      bottom: bottom,
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(TDeviceUtils.getAppBarHeight());
+  Size get preferredSize => Size.fromHeight(bottom == null ? TDeviceUtils.getAppBarHeight() : TDeviceUtils.getAppBarHeight() * 2.3 );
 }

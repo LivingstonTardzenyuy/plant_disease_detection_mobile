@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/appbar/appbar.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/custom_shapes/containers/primary_header_container.dart';
-import 'package:plant_disease_detection_mobile/common/widgets/reports/report_card.dart';
+import 'package:plant_disease_detection_mobile/common/widgets/reports/phone_report_card.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/texts/section_heading.dart';
 import 'package:plant_disease_detection_mobile/features/home/models/news_item.dart';
 import 'package:plant_disease_detection_mobile/features/home/screens/home/widgets/quick_action_button.dart';
-import 'package:plant_disease_detection_mobile/features/home/screens/home/widgets/report_item.dart';
 import 'package:plant_disease_detection_mobile/features/home/screens/home/widgets/status_card.dart';
 import 'package:plant_disease_detection_mobile/features/home/screens/home/widgets/trending_news.dart';
 import 'package:plant_disease_detection_mobile/features/home/screens/home/widgets/weather_report.dart';
-import 'package:plant_disease_detection_mobile/features/report/models/report.dart';
+import 'package:plant_disease_detection_mobile/features/report/models/phone_report_model.dart';
+import 'package:plant_disease_detection_mobile/features/report/screens/phone_detailed_diagnostic_report_screen.dart';
+import 'package:plant_disease_detection_mobile/features/report/service/phone_report_service.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/colors.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/sizes.dart';
 
@@ -71,6 +72,7 @@ class HomeScreen extends StatelessWidget {
                         context,
                       ).textTheme.headlineMedium!.apply(color: TColors.white),
                     ),
+                    background: Colors.transparent,
                   ),
 
                   const SizedBox(height: TSizes.spaceBtwItems),
@@ -184,23 +186,28 @@ class HomeScreen extends StatelessWidget {
                   ),
 
                   // const SizedBox(height: TSizes.spaceBtwItems),
-
                   Transform.translate(
                     offset: Offset(0, -30),
                     child: ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: min(3, Report.reports.length),
+                      itemCount: min(3, PhoneReportService.reports.length),
                       // Show max 3 items,
-                      itemBuilder:
-                          (_, index) => Padding(
-                            padding: EdgeInsets.only(
-                              bottom: TSizes.spaceBtwItems,
-                            ),
-                            child: ReportCard(
-                              report: Report.reports[index],
-                            ),
+                      itemBuilder: (_, index) {
+                        final PhoneScanReportModel report = PhoneReportService.reports[index];
+                        return Padding(
+                          padding: EdgeInsets.only(
+                            bottom: TSizes.spaceBtwItems,
                           ),
+                          child: GestureDetector(
+                            onTap:
+                                () => PhoneDetailedDiagnosticReportScreen(
+                                  report: report,
+                                ),
+                            child: PhoneReportCard(report: report),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ],

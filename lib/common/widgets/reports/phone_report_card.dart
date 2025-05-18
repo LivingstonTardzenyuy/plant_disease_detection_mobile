@@ -3,18 +3,21 @@ import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/images/rounded_images.dart';
-import 'package:plant_disease_detection_mobile/features/report/models/report.dart';
+import 'package:plant_disease_detection_mobile/features/report/models/phone_report_model.dart';
+import 'package:plant_disease_detection_mobile/features/report/models/report_model.dart';
+import 'package:plant_disease_detection_mobile/features/report/service/disease_info_service.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/colors.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/sizes.dart';
 
-class ReportCard extends StatelessWidget {
-  final Report report;
+class PhoneReportCard extends StatelessWidget {
+  final PhoneScanReportModel report;
 
-  const ReportCard({super.key, required this.report});
+  const PhoneReportCard({super.key, required this.report});
 
   @override
   Widget build(BuildContext context) {
     final isDrone = report.scanType.toLowerCase() == 'drone';
+    final String diseaseName = DiseaseInfoService.getName(report.diseaseId);
     return Row(
       children: [
         /// ----- Report Image
@@ -32,20 +35,18 @@ class ReportCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                report.disease,
+                diseaseName,
                 style: Theme.of(
                   context,
                 ).textTheme.bodyLarge!.apply(fontWeightDelta: 2),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
               RichText(
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 text: TextSpan(
                   children: [
-                    TextSpan(
-                      text: 'Source : ',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
                     WidgetSpan(
                       child: Padding(
                         padding: const EdgeInsets.only(right: 4.0),
@@ -57,7 +58,7 @@ class ReportCard extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: report.scanType,
+                      text: '${report.scanType} Scan',
                       style: Theme.of(context).textTheme.bodyMedium!.apply(
                         fontWeightDelta: 2,
                         color: TColors.primary,

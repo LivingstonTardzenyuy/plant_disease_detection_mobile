@@ -21,6 +21,7 @@ class TTabBar extends StatelessWidget implements PreferredSizeWidget {
         indicatorColor: TColors.primary,
         unselectedLabelColor: TColors.darkGrey,
         labelColor: isDark ? TColors.white : TColors.primary,
+        padding: EdgeInsets.only(top: 25),
       
         tabs: tabs
       ),
