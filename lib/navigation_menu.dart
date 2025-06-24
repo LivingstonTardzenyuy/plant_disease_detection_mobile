@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:plant_disease_detection_mobile/features/home/screens/home/home_screen.dart';
 import 'package:plant_disease_detection_mobile/features/personalization/screens/settings/settings_screen.dart';
+import 'package:plant_disease_detection_mobile/features/phone_based_disease_detection/screens/phone_based_disease_detection_screen.dart';
 import 'package:plant_disease_detection_mobile/features/report/screens/report_screen.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/colors.dart';
 import 'package:plant_disease_detection_mobile/utils/helpers/helper_functions.dart';
@@ -55,7 +56,7 @@ class NavigationMenuController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
   final screens = [
     const HomeScreen(),
-    const Center(child: Text(("Scan"))),
+    PhoneBasedDiseaseDetectionScreen(),
     const Center(child: Text("Drone")),
     const ReportScreen(),
     const SettingsScreen(),

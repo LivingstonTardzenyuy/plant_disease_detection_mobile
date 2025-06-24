@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/sizes.dart';
 
@@ -13,6 +14,7 @@ class TRoundedImage extends StatelessWidget {
     this.fit = BoxFit.cover,
     this.padding,
     this.isNetworkImage = false,
+    this.isFileImage = false,
     this.onPressed,
     this.borderRadius = TSizes.md,
   });
@@ -25,16 +27,28 @@ class TRoundedImage extends StatelessWidget {
   final BoxFit? fit;
   final EdgeInsetsGeometry? padding;
   final bool isNetworkImage;
+  final bool isFileImage;
   final VoidCallback? onPressed;
   final double borderRadius;
 
   @override
   Widget build(BuildContext context) {
+    ImageProvider imageProvider;
+
+    if (isNetworkImage) {
+      imageProvider = NetworkImage(imageUrl);
+    } else if (isFileImage) {
+      imageProvider = FileImage(File(imageUrl));
+    } else {
+      imageProvider = AssetImage(imageUrl);
+    }
+
     return GestureDetector(
       onTap: onPressed,
       child: Container(
         height: height,
         width: width,
+        padding: padding,
         decoration: BoxDecoration(
           border: border,
           color: backgroundColor,
@@ -47,11 +61,9 @@ class TRoundedImage extends StatelessWidget {
               ? BorderRadius.circular(borderRadius)
               : BorderRadius.zero,
           child: Image(
-            image: isNetworkImage
-                ? NetworkImage(imageUrl)
-                : AssetImage(imageUrl) as ImageProvider,
+            image: imageProvider,
             fit: fit,
-            height: height, // Ensures consistent height
+            height: height,
             width: width,
           ),
         ),
