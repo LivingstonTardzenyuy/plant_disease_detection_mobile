@@ -193,6 +193,7 @@ class BuildPreview extends StatelessWidget {
           imageUrl: image!.path,
           width: double.infinity,
           isFileImage: true,
+            borderRadius: 0,
         ),
         const SizedBox(height: TSizes.spaceBtwSections),
         Row(

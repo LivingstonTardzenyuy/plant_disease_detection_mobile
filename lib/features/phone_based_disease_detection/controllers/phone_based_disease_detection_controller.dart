@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 
 class PhoneBasedDiseaseDetectionController extends GetxController {
   final Rx<File?> selectedImage = Rx<File?>(null);
@@ -42,16 +44,51 @@ class PhoneBasedDiseaseDetectionController extends GetxController {
     selectedImage.value = null;
   }
 
+  // Future<void> submitImageForDiagnosis() async {
+  //   if (selectedImage.value == null) return;
+  //
+  //   isLoading.value = true;
+  //
+  //   // Simulate backend upload
+  //   await Future.delayed(const Duration(seconds: 2));
+  //
+  //   isLoading.value = false;
+  //
+  //   Get.snackbar("Scan Submitted", "Your scan is being processed.");
+  // }
+
   Future<void> submitImageForDiagnosis() async {
     if (selectedImage.value == null) return;
 
     isLoading.value = true;
 
-    // Simulate backend upload
-    await Future.delayed(const Duration(seconds: 2));
+    try {
+      // Get app's document directory (permanent storage)
+      final Directory appDocDir = await getApplicationDocumentsDirectory();
 
-    isLoading.value = false;
+      // Create a unique filename based on timestamp
+      final String timestamp = DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
+      final String fileName = 'diagnosis_$timestamp.jpg';
 
-    Get.snackbar("Scan Submitted", "Your scan is being processed.");
+      // Create destination file path
+      final String newPath = '${appDocDir.path}/$fileName';
+
+      // Copy the file
+      final File savedImage = await selectedImage.value!.copy(newPath);
+
+      // Simulate backend upload
+      await Future.delayed(const Duration(seconds: 2));
+
+      // Notify user and show the saved path
+      Get.snackbar("Scan Submitted", "Image saved at:\n$newPath");
+      print("Image saved at:\n$newPath");
+
+      // Optionally: clear the selected image
+      selectedImage.value = null;
+    } catch (e) {
+      Get.snackbar("Error", "Failed to save image: $e");
+    } finally {
+      isLoading.value = false;
+    }
   }
 }

@@ -34,7 +34,7 @@ class NavigationMenu extends StatelessWidget {
               icon: Icon(Iconsax.scan_barcode),
               label: "Scan",
             ),
-            NavigationDestination(icon: Icon(Iconsax.airplane), label: "Drone"),
+            // NavigationDestination(icon: Icon(Iconsax.airplane), label: "Drone"),
             NavigationDestination(
               icon: Icon(Iconsax.document_text),
               label: "Report",
@@ -57,7 +57,7 @@ class NavigationMenuController extends GetxController {
   final screens = [
     const HomeScreen(),
     PhoneBasedDiseaseDetectionScreen(),
-    const Center(child: Text("Drone")),
+    // const Center(child: Text("Drone")),
     const ReportScreen(),
     const SettingsScreen(),
   ];

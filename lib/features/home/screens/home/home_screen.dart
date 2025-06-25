@@ -185,7 +185,7 @@ class HomeScreen extends StatelessWidget {
                     showActionButton: false,
                   ),
 
-                  // const SizedBox(height: TSizes.sm / 2),
+                  const SizedBox(height: TSizes.spaceBtwItems),
                   Transform.translate(
                     offset: Offset(0, -30),
                     child: ListView.builder(
