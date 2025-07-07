@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/appbar/appbar.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/custom_shapes/containers/primary_header_container.dart';
@@ -121,28 +122,28 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: TSizes.spaceBtwSections),
 
                   ///----- Quick Actions
-                  TSectionHeading(
-                    title: "Quick Actions",
-                    showActionButton: false,
-                  ),
-                  const SizedBox(height: TSizes.spaceBtwItems),
+                  // TSectionHeading(
+                  //   title: "Quick Actions",
+                  //   showActionButton: false,
+                  // ),
+                  // const SizedBox(height: TSizes.spaceBtwItems),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      QuickActionButton(
-                        icon: Iconsax.scan_barcode,
-                        label: 'Scan Plant',
-                        color: TColors.primary,
-                      ),
-                      QuickActionButton(
-                        icon: Iconsax.airplane,
-                        label: 'Launch Drone',
-                        color: Colors.blue,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //   children: [
+                  //     QuickActionButton(
+                  //       icon: Iconsax.scan_barcode,
+                  //       label: 'Scan Plant',
+                  //       color: TColors.primary,
+                  //     ),
+                  //     QuickActionButton(
+                  //       icon: Iconsax.airplane,
+                  //       label: 'Launch Drone',
+                  //       color: Colors.blue,
+                  //     ),
+                  //   ],
+                  // ),
+                  // const SizedBox(height: TSizes.spaceBtwSections),
 
                   ///--- Trending New
                   TSectionHeading(title: "Trending News"),
@@ -194,16 +195,19 @@ class HomeScreen extends StatelessWidget {
                       itemCount: min(3, PhoneReportService.reports.length),
                       // Show max 3 items,
                       itemBuilder: (_, index) {
-                        final PhoneScanReportModel report = PhoneReportService.reports[index];
+                        final PhoneScanReportModel report =
+                        PhoneReportService.reports[index];
                         return Padding(
                           padding: EdgeInsets.only(
                             bottom: TSizes.spaceBtwItems,
                           ),
-                          child: GestureDetector(
+                          child: InkWell(
                             onTap:
-                                () => PhoneDetailedDiagnosticReportScreen(
-                                  report: report,
-                                ),
+                                () => Get.to(
+                                  () => PhoneDetailedDiagnosticReportScreen(
+                                report: report,
+                              ),
+                            ),
                             child: PhoneReportCard(report: report),
                           ),
                         );

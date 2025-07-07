@@ -182,7 +182,7 @@ class PhoneDetailedDiagnosticReportScreen extends StatelessWidget {
                       infoWindow: const InfoWindow(title: 'Scan Location'),
                     ),
                   },
-                  zoomControlsEnabled: false,
+                  zoomControlsEnabled: true,
                   myLocationButtonEnabled: false,
                   liteModeEnabled: true, // For performance and preview only
                 ),

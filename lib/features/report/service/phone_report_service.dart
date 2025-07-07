@@ -11,16 +11,16 @@ class PhoneReportService {
       scanType: "Phone",
       confidence: 94,
       date: DateTime.now().subtract(const Duration(days: 1)),
-      location: GeoPointModel(lat: 5.6037, lon: -0.1870),
+      location: GeoPointModel(lat: 6.0452, lon: 10.1587),
     ),
     PhoneScanReportModel(
       reportId: "r2",
-      diseaseId: "Cassava__bacteria_blight_disease",
+      diseaseId: "Cassava__bacterial_blight",
       imageUrl: "assets/images/leaves_images/cassava_bacteria_blight.jpeg",
       scanType: "Phone",
       confidence: 88,
       date: DateTime.now().subtract(const Duration(days: 3)),
-      location: GeoPointModel(lat: 5.5937, lon: -0.1900),
+      location: GeoPointModel(lat: 5.9681, lon: 10.1985),
     ),
     PhoneScanReportModel(
       reportId: "r3",
@@ -29,7 +29,7 @@ class PhoneReportService {
       scanType: "Phone",
       confidence: 99,
       date: DateTime.now().subtract(const Duration(days: 6)),
-      location: GeoPointModel(lat: 5.6130, lon: -0.2001),
+      location: GeoPointModel(lat: 6.0123, lon: 10.1345),
     ),
     PhoneScanReportModel(
       reportId: "r4",
@@ -38,7 +38,7 @@ class PhoneReportService {
       scanType: "Phone",
       confidence: 90,
       date: DateTime.now().subtract(const Duration(days: 6)),
-      location: GeoPointModel(lat: 5.6040, lon: -0.1850),
+      location: GeoPointModel(lat: 5.9521, lon: 10.4210),
     ),
     PhoneScanReportModel(
       reportId: "r5",
@@ -47,7 +47,7 @@ class PhoneReportService {
       scanType: "Phone",
       confidence: 92,
       date: DateTime.now().subtract(const Duration(days: 6)),
-      location: GeoPointModel(lat: 5.6011, lon: -0.1890),
+      location: GeoPointModel(lat: 6.0452, lon: 10.1587),
     ),
     PhoneScanReportModel(
       reportId: "r6",
@@ -56,7 +56,7 @@ class PhoneReportService {
       scanType: "Phone",
       confidence: 95,
       date: DateTime.now().subtract(const Duration(days: 6)),
-      location: GeoPointModel(lat: 5.6111, lon: -0.1880),
+      location: GeoPointModel(lat: 6.0452, lon: 10.1587),
     ),
     PhoneScanReportModel(
       reportId: "r7",
@@ -65,7 +65,7 @@ class PhoneReportService {
       scanType: "Phone",
       confidence: 89,
       date: DateTime.now().subtract(const Duration(days: 6)),
-      location: GeoPointModel(lat: 5.6140, lon: -0.1830),
+      location: GeoPointModel(lat: 6.0452, lon: 10.1587),
     ),
     PhoneScanReportModel(
       reportId: "r8",
@@ -74,7 +74,7 @@ class PhoneReportService {
       scanType: "Phone",
       confidence: 99,
       date: DateTime.now().subtract(const Duration(days: 6)),
-      location: GeoPointModel(lat: 5.6067, lon: -0.1811),
+      location: GeoPointModel(lat: 6.0452, lon: 10.1587),
     ),
     PhoneScanReportModel(
       reportId: "r9",
@@ -83,7 +83,7 @@ class PhoneReportService {
       scanType: "Phone",
       confidence: 90,
       date: DateTime.now().subtract(const Duration(days: 6)),
-      location: GeoPointModel(lat: 5.6099, lon: -0.1901),
+      location: GeoPointModel(lat: 6.0452, lon: 10.1587),
     ),
   ];
 }
