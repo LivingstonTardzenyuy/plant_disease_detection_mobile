@@ -5,7 +5,7 @@ class PhoneReportService {
   static final List<PhoneScanReportModel> reports = [
     PhoneScanReportModel(
       reportId: "r1",
-      diseaseId: "cassava_brown_streak",
+      diseaseId: "Cassava__brown_streak_disease",
       imageUrl:
           "assets/images/leaves_images/Cassava__brown_streak_disease.jpeg",
       scanType: "Phone",
@@ -15,7 +15,7 @@ class PhoneReportService {
     ),
     PhoneScanReportModel(
       reportId: "r2",
-      diseaseId: "cassava_bacteria_blight",
+      diseaseId: "Cassava__bacteria_blight_disease",
       imageUrl: "assets/images/leaves_images/cassava_bacteria_blight.jpeg",
       scanType: "Phone",
       confidence: 88,
@@ -24,7 +24,7 @@ class PhoneReportService {
     ),
     PhoneScanReportModel(
       reportId: "r3",
-      diseaseId: "corn_common_rust",
+      diseaseId: "Corn__common_rust",
       imageUrl: "assets/images/leaves_images/Corn__common_rust.jpeg",
       scanType: "Phone",
       confidence: 99,
@@ -33,7 +33,7 @@ class PhoneReportService {
     ),
     PhoneScanReportModel(
       reportId: "r4",
-      diseaseId: "corn_healthy",
+      diseaseId: "Corn__healthy",
       imageUrl: "assets/images/leaves_images/Corn__healthy.jpeg",
       scanType: "Phone",
       confidence: 90,
@@ -42,7 +42,7 @@ class PhoneReportService {
     ),
     PhoneScanReportModel(
       reportId: "r5",
-      diseaseId: "pepper_bacterial_spot",
+      diseaseId: "Pepper_bell__bacterial_spot",
       imageUrl: "assets/images/leaves_images/Pepper_bell__bacterial_spot.jpeg",
       scanType: "Phone",
       confidence: 92,
@@ -51,7 +51,7 @@ class PhoneReportService {
     ),
     PhoneScanReportModel(
       reportId: "r6",
-      diseaseId: "potato_early_blight",
+      diseaseId: "Potato__early_blight",
       imageUrl: "assets/images/leaves_images/Potato__early_blight.jpeg",
       scanType: "Phone",
       confidence: 95,
@@ -60,7 +60,7 @@ class PhoneReportService {
     ),
     PhoneScanReportModel(
       reportId: "r7",
-      diseaseId: "potato_late_blight",
+      diseaseId: "Potato__late_blight",
       imageUrl: "assets/images/leaves_images/Potato__late_blight.webp",
       scanType: "Phone",
       confidence: 89,
@@ -69,7 +69,7 @@ class PhoneReportService {
     ),
     PhoneScanReportModel(
       reportId: "r8",
-      diseaseId: "tomato_healthy",
+      diseaseId: "Tomato__healthy",
       imageUrl: "assets/images/leaves_images/Tomato__healthy.jpeg",
       scanType: "Phone",
       confidence: 99,
@@ -78,7 +78,7 @@ class PhoneReportService {
     ),
     PhoneScanReportModel(
       reportId: "r9",
-      diseaseId: "tomato_mosaic_virus",
+      diseaseId: "Tomato__mosaic_virus",
       imageUrl: "assets/images/leaves_images/Tomato__mosaic_virus.jpeg",
       scanType: "Phone",
       confidence: 90,

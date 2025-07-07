@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:intl/intl.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/appbar/appbar.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/images/rounded_images.dart';
@@ -9,6 +10,8 @@ import 'package:plant_disease_detection_mobile/features/report/service/disease_i
 import 'package:plant_disease_detection_mobile/utils/constants/colors.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/sizes.dart';
 import 'package:plant_disease_detection_mobile/utils/device/device_utility.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PhoneDetailedDiagnosticReportScreen extends StatelessWidget {
   final PhoneScanReportModel report;
@@ -26,6 +29,21 @@ class PhoneDetailedDiagnosticReportScreen extends StatelessWidget {
       );
     }
 
+    // Define a common MarkdownStyleSheet to maintain consistent styling
+    final baseMarkdownStyle = Theme.of(context).textTheme.bodyLarge; // Get your base text style
+
+    final customMarkdownStyleSheet = MarkdownStyleSheet(
+      p: baseMarkdownStyle, // Paragraphs will use bodyLarge
+      strong: baseMarkdownStyle?.copyWith(fontWeight: FontWeight.bold), // Bold text will be bodyLarge bold
+      h1: Theme.of(context).textTheme.headlineSmall, // For SectionHeadings (if you pass them as Markdown)
+      h2: Theme.of(context).textTheme.headlineSmall,
+      h3: Theme.of(context).textTheme.headlineSmall,
+      // You can define other styles as needed, e.g., for `bullet`
+      listIndent: 20.0, // Indent for list items
+      listBullet: baseMarkdownStyle, // Style for the bullet character
+    );
+
+
     return Scaffold(
       appBar: TAppBar(
         showBackArrow: true,
@@ -37,7 +55,7 @@ class PhoneDetailedDiagnosticReportScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.share, color: TColors.white,),
+            icon: const Icon(Icons.share, color: TColors.white),
             onPressed: () {
               // TODO: Implement share functionality
             },
@@ -55,7 +73,6 @@ class PhoneDetailedDiagnosticReportScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             /// --- Disease Name
             Text(
               diseaseInfo.name,
@@ -73,7 +90,7 @@ class PhoneDetailedDiagnosticReportScreen extends StatelessWidget {
             /// --- Confidence Level
             Row(
               children: [
-                const Icon(Icons.analytics_outlined, color: TColors.primary,),
+                const Icon(Icons.analytics_outlined, color: TColors.primary),
                 const SizedBox(width: 8),
                 Text("Confidence: ${report.confidence.toStringAsFixed(1)}%"),
               ],
@@ -90,38 +107,114 @@ class PhoneDetailedDiagnosticReportScreen extends StatelessWidget {
             const SizedBox(height: TSizes.spaceBtwSections),
 
             /// --- Explanation
-            TSectionHeading(title: "Explanation", showActionButton: false,),
+            TSectionHeading(title: "Explanation", showActionButton: false),
             const SizedBox(height: TSizes.spaceBtwItems / 2),
-            Text(diseaseInfo.explanation),
+            // Text(diseaseInfo.explanation),
+            MarkdownBody(
+              data: diseaseInfo.explanation,
+              shrinkWrap: true, // Crucial for use inside Column/SingleChildScrollView
+              selectable: true, // Optional: makes text selectable
+              styleSheet: customMarkdownStyleSheet, // Apply custom styles
+            ),
             const SizedBox(height: TSizes.spaceBtwSections),
 
             /// --- Possible Causes
-            TSectionHeading(title: "Possible Causes", showActionButton: false,),
+            TSectionHeading(title: "Possible Causes", showActionButton: false),
             const SizedBox(height: TSizes.spaceBtwItems / 2),
-            Text(diseaseInfo.possibleCauses),
+            // Text(diseaseInfo.possibleCauses),
+            MarkdownBody(
+              data: diseaseInfo.possibleCauses,
+              shrinkWrap: true, // Crucial for use inside Column/SingleChildScrollView
+              selectable: true, // Optional: makes text selectable
+              styleSheet: customMarkdownStyleSheet, // Apply custom styles
+            ),
             const SizedBox(height: TSizes.spaceBtwSections),
 
             /// --- Treatment
-            TSectionHeading(title: "Suggested Treatment", showActionButton: false,),
+            TSectionHeading(
+              title: "Suggested Treatment",
+              showActionButton: false,
+            ),
             const SizedBox(height: TSizes.spaceBtwItems / 2),
-            Text(diseaseInfo.treatment),
+            // Text(diseaseInfo.treatment),
+            MarkdownBody(
+              data: diseaseInfo.treatment,
+              shrinkWrap: true, // Crucial for use inside Column/SingleChildScrollView
+              selectable: true, // Optional: makes text selectable
+              styleSheet: customMarkdownStyleSheet, // Apply custom styles
+            ),
             const SizedBox(height: TSizes.spaceBtwSections),
 
             /// --- Metadata
-            TSectionHeading(title: "Scan Info", showActionButton: false,),
+            TSectionHeading(title: "Scan Info", showActionButton: false),
             const SizedBox(height: TSizes.spaceBtwItems / 2),
-            InfoRow(icon: Icons.camera_alt, label: "Scan Type: ${report.scanType}"),
+            InfoRow(
+              icon: Icons.camera_alt,
+              label: "Scan Type: ${report.scanType}",
+            ),
             InfoRow(icon: Icons.calendar_today, label: "Date: $formattedDate"),
 
             if (report.location != null)
               InfoRow(
                 icon: Icons.location_on,
-                label: "Location: Lat ${report.location!.lat.toStringAsFixed(4)}, "
-                "Lon ${report.location!.lon.toStringAsFixed(4)}",
+                label:
+                    "Location: Lat ${report.location!.lat.toStringAsFixed(4)}, "
+                    "Lon ${report.location!.lon.toStringAsFixed(4)}",
               ),
 
-            const SizedBox(height: TSizes.spaceBtwSections),
-            // TODO: Add Google Map preview of location (optional).
+            if (report.location != null) ...[
+              const SizedBox(height: TSizes.spaceBtwItems),
+              SizedBox(
+                height: 200,
+                width: double.infinity,
+                child: GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(report.location!.lat, report.location!.lon),
+                    zoom: 15,
+                  ),
+                  markers: {
+                    Marker(
+                      markerId: const MarkerId('scan_location'),
+                      position: LatLng(
+                        report.location!.lat,
+                        report.location!.lon,
+                      ),
+                      infoWindow: const InfoWindow(title: 'Scan Location'),
+                    ),
+                  },
+                  zoomControlsEnabled: false,
+                  myLocationButtonEnabled: false,
+                  liteModeEnabled: true, // For performance and preview only
+                ),
+              ),
+              const SizedBox(height: TSizes.sm),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  icon: const Icon(Icons.directions),
+                  label: const Text('Navigate to Location'),
+                  onPressed: () async {
+                    final lat = report.location!.lat;
+                    final lon = report.location!.lon;
+                    final url = Uri.parse(
+                      'https://www.google.com/maps/dir/?api=1&destination=lat},lon}',
+                    );
+                    if (await canLaunchUrl(url)) {
+                      await launchUrl(
+                        url,
+                        mode: LaunchMode.externalApplication,
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Could not open Google Maps.'),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
+            ],
           ],
         ),
       ),

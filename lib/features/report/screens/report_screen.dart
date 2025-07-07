@@ -19,96 +19,50 @@ class ReportScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: TAppBar(
-          title: Text(
-            "Scan Reports",
-            style: Theme.of(
-              context,
-            ).textTheme.headlineMedium!.apply(color: TColors.white),
-          ),
-          showBackArrow: false,
-          bottom: TTabBar(
-            tabs: [Tab(text: 'Phone Scans'), Tab(text: 'Drone Scans')],
-          ),
+    return Scaffold(
+      appBar: TAppBar(
+        title: Text(
+          "Diagnosis History",
+          style: Theme.of(
+            context,
+          ).textTheme.headlineMedium!.apply(color: TColors.white),
         ),
-        body: TabBarView(
+        showBackArrow: false,
+        // bottom: TTabBar(
+        //   tabs: [Tab(text: 'Phone Scans'), Tab(text: 'Drone Scans')],
+        // ),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(TSizes.defaultSpace),
+        child: Column(
           children: [
-            /// ---- Phone Reports Tab
             Padding(
-              padding: EdgeInsets.all(TSizes.defaultSpace),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: TSizes.sm),
-                    child: TSearchBar(hintText: 'Disease, plant...'),
-                  ),
-                  SizedBox(height: TSizes.spaceBtwSections),
-
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: PhoneReportService.reports.length,
-                      itemBuilder: (_, index) {
-                        final PhoneScanReportModel report =
-                            PhoneReportService.reports[index];
-                        return Padding(
-                          padding: EdgeInsets.only(
-                            bottom: TSizes.spaceBtwItems,
-                          ),
-                          child: InkWell(
-                            onTap:
-                                () => Get.to(
-                                  () => PhoneDetailedDiagnosticReportScreen(
-                                    report: report,
-                                  ),
-                                ),
-                            child: PhoneReportCard(report: report),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: TSizes.sm),
+              child: TSearchBar(hintText: 'Disease, plant...'),
             ),
+            SizedBox(height: TSizes.spaceBtwSections),
 
-            /// ---- Drone Reports Tab
-            Padding(
-              padding: EdgeInsets.all(TSizes.defaultSpace),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: TSizes.sm),
-                    child: TSearchBar(hintText: 'Disease, location...'),
-                  ),
-                  SizedBox(height: TSizes.spaceBtwSections),
-
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: DroneReportService.reports.length,
-                      itemBuilder: (_, index) {
-                        final DroneScanReportModel droneReport =
-                            DroneReportService.reports[index];
-                        return Padding(
-                          padding: EdgeInsets.only(
-                            bottom: TSizes.spaceBtwItems,
-                          ),
-                          child: InkWell(
-                            onTap:
-                                () => Get.to(
-                                  () => DroneDetailedDiagnosticReportScreen(
-                                    report: droneReport,
-                                  ),
-                                ),
-                            child: DroneReportCard(report: droneReport),
-                          ),
-                        );
-                      },
+            Expanded(
+              child: ListView.builder(
+                itemCount: PhoneReportService.reports.length,
+                itemBuilder: (_, index) {
+                  final PhoneScanReportModel report =
+                  PhoneReportService.reports[index];
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      bottom: TSizes.spaceBtwItems,
                     ),
-                  ),
-                ],
+                    child: InkWell(
+                      onTap:
+                          () => Get.to(
+                            () => PhoneDetailedDiagnosticReportScreen(
+                          report: report,
+                        ),
+                      ),
+                      child: PhoneReportCard(report: report),
+                    ),
+                  );
+                },
               ),
             ),
           ],

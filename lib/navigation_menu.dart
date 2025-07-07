@@ -37,7 +37,7 @@ class NavigationMenu extends StatelessWidget {
             // NavigationDestination(icon: Icon(Iconsax.airplane), label: "Drone"),
             NavigationDestination(
               icon: Icon(Iconsax.document_text),
-              label: "Report",
+              label: "History",
             ),
             NavigationDestination(icon: Icon(Iconsax.user), label: "Account"),
           ],

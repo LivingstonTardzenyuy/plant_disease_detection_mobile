@@ -28,7 +28,7 @@ dependencies:
 
   # --- Location & Maps
   geolocator: ^14.0.0   # GPS coordinates for drone scans
-  google_maps_flutter: ^2.12.1    # Map integration for drone waypoints
+  google_maps_flutter: ^2.5.0
 
   # --- Utilities
   camera: ^0.11.1   # Real-time video capture (if needed)
@@ -43,7 +43,7 @@ dependencies:
   shimmer: ^3.0.0   # Loading placeholders
   flutter_native_splash: ^2.4.6 # splash screen
   logger: ^2.5.0
-  url_launcher: ^6.3.1
+  url_launcher: ^6.2.5
   iconsax: ^0.0.8
   flutter_rating_bar: ^4.0.1
   smooth_page_indicator: ^1.2.1
@@ -53,6 +53,7 @@ dependencies:
   carousel_slider: ^5.0.0
   percent_indicator: ^4.2.5
   image_cropper: ^9.1.0
+  flutter_markdown: ^0.7.7+1
 
 
 dev_dependencies:
