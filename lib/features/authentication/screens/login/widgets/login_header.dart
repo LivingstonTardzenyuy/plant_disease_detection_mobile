@@ -15,12 +15,12 @@ class LoginHeading extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image(
-          image: AssetImage(
-            isDark ? TImages.darkAppLogo : TImages.lightAppLogo,
-          ),
-          height: 150,
-        ),
+        // Image(
+        //   image: AssetImage(
+        //     isDark ? TImages.darkAppLogo : TImages.lightAppLogo,
+        //   ),
+        //   height: 150,
+        // ),
         Text(
           TTexts.loginTitle,
           style: Theme.of(context).textTheme.headlineMedium,

@@ -60,8 +60,8 @@ class SettingsScreen extends StatelessWidget {
 
                   TSettingsMenuTile(
                     icon: Iconsax.bank,
-                    title: 'Bank Account',
-                    subTitle: 'Withdraw balance to registered bank account',
+                    title: 'Payment Method',
+                    subTitle: 'Methods of payment',
                   ),
                   TSettingsMenuTile(
                     icon: Iconsax.discount_shape,
@@ -85,7 +85,7 @@ class SettingsScreen extends StatelessWidget {
                   TSettingsMenuTile(
                     icon: Iconsax.location,
                     title: 'Geolocation',
-                    subTitle: 'Set recommendation based on location',
+                    subTitle: 'Upload Image with Geolocation',
                     trailing: Switch(
                       value: true,
                       onChanged: (value) {},
@@ -93,17 +93,17 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
 
-                  TSettingsMenuTile(
-                    icon: Iconsax.image,
-                    title: 'HD Image Quality',
-                    subTitle:
-                        'Use high-resolution images (more data & battery)',
-                    trailing: Switch(
-                      value: false,
-                      onChanged: (value) {},
-                      activeColor: TColors.primary,
-                    ),
-                  ),
+                  // TSettingsMenuTile(
+                  //   icon: Iconsax.image,
+                  //   title: 'HD Image Quality',
+                  //   subTitle:
+                  //       'Use high-resolution images (more data & battery)',
+                  //   trailing: Switch(
+                  //     value: false,
+                  //     onChanged: (value) {},
+                  //     activeColor: TColors.primary,
+                  //   ),
+                  // ),
 
                   TSettingsMenuTile(
                     icon: Iconsax.notification,

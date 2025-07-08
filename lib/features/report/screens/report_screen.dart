@@ -37,10 +37,10 @@ class ReportScreen extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: TSizes.sm),
+              padding: const EdgeInsets.symmetric(horizontal: TSizes.sm, vertical: TSizes.sm / 2),
               child: TSearchBar(hintText: 'Disease, plant...'),
             ),
-            SizedBox(height: TSizes.spaceBtwSections),
+            SizedBox(height: TSizes.spaceBtwSections / 2),
 
             Expanded(
               child: ListView.builder(

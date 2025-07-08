@@ -8,6 +8,7 @@ import 'package:plant_disease_detection_mobile/features/report/models/report_mod
 import 'package:plant_disease_detection_mobile/features/report/service/disease_info_service.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/colors.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/sizes.dart';
+import 'package:plant_disease_detection_mobile/utils/helpers/helper_functions.dart';
 
 class PhoneReportCard extends StatelessWidget {
   final PhoneScanReportModel report;
@@ -18,6 +19,8 @@ class PhoneReportCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDrone = report.scanType.toLowerCase() == 'drone';
     final String diseaseName = DiseaseInfoService.getName(report.diseaseId);
+
+    final isDark = THelperFunctions.isDarkMode(context);
     return Row(
       children: [
         /// ----- Report Image
@@ -87,7 +90,7 @@ class PhoneReportCard extends StatelessWidget {
                     TextSpan(
                       text: "Date: ${DateFormat.yMMMd().format(report.date)}",
                       style: Theme.of(context).textTheme.labelSmall!.apply(
-                        color: Colors.black.withValues(alpha: 0.4),
+                        color: isDark ? TColors.lightGrey.withValues(alpha: 0.7) : Colors.black.withValues(alpha: 0.4),
                       ),
                     ),
                   ],
@@ -114,7 +117,7 @@ class PhoneReportCard extends StatelessWidget {
           footer: Text(
             "Confidence",
             style: Theme.of(context).textTheme.labelLarge!.apply(
-              color: TColors.black.withValues(alpha: 0.4),
+              color: isDark ? TColors.lightGrey.withValues(alpha: 0.7) : TColors.black.withValues(alpha: 0.4),
               fontWeightDelta: 1,
             ),
           ),

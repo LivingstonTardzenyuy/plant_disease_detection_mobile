@@ -5,6 +5,7 @@ import 'package:plant_disease_detection_mobile/common/widgets/login_signup/socia
 import 'package:plant_disease_detection_mobile/features/authentication/screens/login/widgets/login_form.dart';
 import 'package:plant_disease_detection_mobile/features/authentication/screens/login/widgets/login_header.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/sizes.dart';
+import 'package:plant_disease_detection_mobile/utils/device/device_utility.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -17,6 +18,9 @@ class LoginScreen extends StatelessWidget {
           padding: TSpacingStyle.spacingWithAppBarHeight,
           child: Column(
             children: [
+
+              SizedBox(height: TDeviceUtils.getAppBarHeight(),),
+
               /// Logo, Title and sub title
               LoginHeading(),
 

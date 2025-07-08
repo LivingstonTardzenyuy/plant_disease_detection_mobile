@@ -4,6 +4,7 @@ import 'package:plant_disease_detection_mobile/common/widgets/appbar/appbar.dart
 import 'package:plant_disease_detection_mobile/common/widgets/images/circular_image.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/texts/section_heading.dart';
 import 'package:plant_disease_detection_mobile/features/personalization/screens/profile/widgets/profile_menu.dart';
+import 'package:plant_disease_detection_mobile/utils/constants/colors.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/image_strings.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/sizes.dart';
 
@@ -15,7 +16,12 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: TAppBar(
         showBackArrow: true,
-        title: Text("Profile"),
+        title: Text(
+          "Profile",
+          style: Theme.of(
+            context,
+          ).textTheme.headlineMedium!.apply(color: TColors.white),
+        ),
       ),
 
       /// --- Body
@@ -29,11 +35,7 @@ class ProfileScreen extends StatelessWidget {
                 width: double.infinity,
                 child: Column(
                   children: [
-                    TCircularImage(
-                      image: TImages.user1,
-                      width: 80,
-                      height: 80,
-                    ),
+                    TCircularImage(image: TImages.user1, width: 80, height: 80),
                     TextButton(
                       onPressed: () {},
                       child: Text('Change profile picture'),
@@ -59,11 +61,7 @@ class ProfileScreen extends StatelessWidget {
                 value: "Signe Josue",
                 onPressed: () {},
               ),
-              TProfileMenu(
-                title: "Username",
-                value: "josue",
-                onPressed: () {},
-              ),
+              TProfileMenu(title: "Username", value: "josue", onPressed: () {}),
 
               const SizedBox(height: TSizes.spaceBtwItems / 2),
               const Divider(),
@@ -86,11 +84,7 @@ class ProfileScreen extends StatelessWidget {
                 value: "+237 677876963",
                 onPressed: () {},
               ),
-              TProfileMenu(
-                title: "Gender",
-                value: "Male",
-                onPressed: () {},
-              ),
+              TProfileMenu(title: "Gender", value: "Male", onPressed: () {}),
               TProfileMenu(
                 title: "Date of Birth",
                 value: "10th Oct, 1995",
@@ -110,7 +104,7 @@ class ProfileScreen extends StatelessWidget {
                     style: TextStyle(color: Colors.red),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

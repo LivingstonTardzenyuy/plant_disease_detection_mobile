@@ -68,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                   /// AppBar
                   TAppBar(
                     title: Text(
-                      "PlaCare",
+                      "PhytoSpotter",
                       style: Theme.of(
                         context,
                       ).textTheme.headlineMedium!.apply(color: TColors.white),
