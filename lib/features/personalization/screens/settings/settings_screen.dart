@@ -6,6 +6,7 @@ import 'package:plant_disease_detection_mobile/common/widgets/custom_shapes/cont
 import 'package:plant_disease_detection_mobile/common/widgets/list_tile/profile_list_tile.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/list_tile/settings_menu_tile.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/texts/section_heading.dart';
+import 'package:plant_disease_detection_mobile/features/authentication/controllers/auth_controller.dart';
 import 'package:plant_disease_detection_mobile/features/personalization/screens/address/user_address_screen.dart';
 import 'package:plant_disease_detection_mobile/features/personalization/screens/profile/profile_screen.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/colors.dart';
@@ -18,6 +19,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeController = Get.find<ThemeController>();
+    final authController = Get.find<AuthController>();
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -154,7 +156,7 @@ class SettingsScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () => authController.logoutUser(),
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(color: Colors.red),
                       ),

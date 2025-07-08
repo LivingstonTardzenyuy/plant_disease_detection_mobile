@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:plant_disease_detection_mobile/utils/theme/theme.dart';
 import 'package:plant_disease_detection_mobile/utils/theme/theme_controller.dart';
+import 'package:plant_disease_detection_mobile/features/authentication/screens/login/login_screen.dart';
+import 'package:plant_disease_detection_mobile/navigation_menu.dart';
 
 import 'features/authentication/screens/onboarding/onboarding_screen.dart';
 
@@ -19,7 +21,11 @@ class App extends StatelessWidget {
       themeMode: themeController.themeMode.value,
       theme: TAppTheme.lightTheme,
       darkTheme: TAppTheme.darkTheme,
-      home: OnBoardingScreen(),
+      initialRoute: '/login',
+      getPages: [
+        GetPage(name: '/login', page: () => const LoginScreen()),
+        GetPage(name: '/nav-menu', page: () => const NavigationMenu()),
+      ],
     );
   }
 }

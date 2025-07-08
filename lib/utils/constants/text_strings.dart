@@ -27,6 +27,7 @@ class TTexts {
   static const String lastName = "Last Name";
   static const String email = "E-Mail";
   static const String password = "Password";
+  static const String confirmPassword = "Confirm Password";
   static const String newPassword = "New Password";
   static const String username = "Username";
   static const String phoneNo = "Phone Number";
@@ -42,7 +43,7 @@ class TTexts {
   static const String verificationCode = "Verification Code";
   static const String recentEmail = "Recent Email";
   static const String recentEmailIn = "Recent email in";
-
+  static const String alreadyHaveAnAccount = "Already have an account";
 
   /// --- Authentication Heading Text
   static const String loginTitle = "Welcome back,";

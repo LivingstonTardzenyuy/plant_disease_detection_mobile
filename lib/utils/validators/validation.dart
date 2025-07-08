@@ -7,7 +7,9 @@ class TValidator {
     }
 
     // Regular expression for email validation
-    final emailRegExp = RegExp(r'^[\w*\.]+@([\w*]*\.)*[\w-]{2, 4}$');
+    final emailRegExp = RegExp(
+      r'^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',
+    );
     if (!emailRegExp.hasMatch(value)) {
       return "Invalid email address.";
     }
@@ -48,12 +50,21 @@ class TValidator {
     }
 
     // Regular expression for phone number validation (assuming a 10 digit US phone number format
-    final phoneRegExp = RegExp(r'^\d{10}$');
+    final phoneRegExp = RegExp(r'^\d{9}$');
 
     if (!phoneRegExp.hasMatch(value)) {
-      return "Invalid phone number format (10 digits required).";
+      return "Invalid phone number format (9 digits required).";
     }
 
     return null;
   }
+
+  static String? validateEmptyText(String? fieldName, String? value) {
+    if (value == null || value.isEmpty) {
+      return '${fieldName ?? 'This field'} is required.';
+    }
+    return null; // Validation passed
+  }
+
+
 }

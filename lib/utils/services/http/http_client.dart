@@ -1,52 +1,71 @@
-import 'dart:convert';
+import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
-import 'package:http/http.dart' as http;
+class DioClient {
+  static final DioClient _instance = DioClient._internal();
+  factory DioClient() => _instance;
+  late final Dio dio;
 
-class HttpHelper {
-  HttpHelper._();
+  static const String baseUrl =
+      'https://backend-plant-disease-detection.onrender.com/api/';
 
-  static const String _baseUrl =
-      'https://your-api-base-url'; // Replace with your api based url
-
-  /// --- Helper method to make GET request
-  static Future<Map<String, dynamic>> get(String endpoint) async {
-    final response = await http.get(Uri.parse('$_baseUrl/$endpoint'));
-    return _handleResponse(response);
-  }
-
-  /// --- Helper method to make POST request
-  static Future<Map<String, dynamic>> post(
-      String endpoint, dynamic data) async {
-    final response = await http.post(
-      Uri.parse('$_baseUrl/$endpoint'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode(data),
+  DioClient._internal() {
+    dio = Dio(BaseOptions(baseUrl: baseUrl));
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final prefs = await SharedPreferences.getInstance();
+          final accessToken = prefs.getString('accessToken');
+          if (accessToken != null && accessToken.isNotEmpty) {
+            options.headers['Authorization'] = 'Bearer $accessToken';
+          }
+          return handler.next(options);
+        },
+        onError: (DioException error, handler) async {
+          final prefs = await SharedPreferences.getInstance();
+          final refreshToken = prefs.getString('refreshToken');
+          final requestOptions = error.requestOptions;
+          // Only try to refresh if 401, not for login/refresh endpoints
+          if (error.response?.statusCode == 401 &&
+              !requestOptions.path.contains('/users/login') &&
+              !requestOptions.path.contains('/users/register')) {
+            if (refreshToken != null &&
+                refreshToken.isNotEmpty &&
+                !JwtDecoder.isExpired(refreshToken)) {
+              try {
+                final response = await dio.post(
+                  'users/login/refresh/',
+                  data: {'refresh': refreshToken},
+                  options: Options(headers: {'Authorization': null}),
+                );
+                final newAccess = response.data['access'];
+                final newRefresh = response.data['refresh'];
+                await prefs.setString('accessToken', newAccess);
+                await prefs.setString('refreshToken', newRefresh);
+                // Retry original request with new token
+                requestOptions.headers['Authorization'] = 'Bearer $newAccess';
+                final cloneReq = await dio.fetch(requestOptions);
+                return handler.resolve(cloneReq);
+              } catch (e) {
+                // Token refresh failed, log out
+                await prefs.remove('accessToken');
+                await prefs.remove('refreshToken');
+                Get.offAllNamed('/login');
+                return handler.reject(error);
+              }
+            } else {
+              // No valid refresh token, log out
+              await prefs.remove('accessToken');
+              await prefs.remove('refreshToken');
+              Get.offAllNamed('/login');
+              return handler.reject(error);
+            }
+          }
+          return handler.next(error);
+        },
+      ),
     );
-    return _handleResponse(response);
-  }
-
-  /// --- Helper method to make PUT request
-  static Future<Map<String, dynamic>> put(String endpoint, dynamic data) async {
-    final response = await http.put(
-      Uri.parse('$_baseUrl/$endpoint'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode(data),
-    );
-    return _handleResponse(response);
-  }
-
-  /// --- Helper method to make DELETE request
-  static Future<Map<String, dynamic>> delete(String endpoint) async {
-    final response = await http.delete(Uri.parse('$_baseUrl/$endpoint'));
-    return _handleResponse(response);
-  }
-
-  /// --- Handle the HTTP response
-  static Map<String, dynamic> _handleResponse(http.Response response) {
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      throw Exception('Failed to load data: ${response.statusCode}');
-    }
   }
 }

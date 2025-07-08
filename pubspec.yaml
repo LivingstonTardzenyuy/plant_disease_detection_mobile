@@ -18,13 +18,16 @@ dependencies:
   # --- Core Packages
   flutter_localizations: # Built-in Flutter package
     sdk: flutter
-  get: ^4.7.2  # State management, routing, DI, and context-free localization
-  dio: ^5.8.0+1  # HTTP requests (upload images)
+  get: ^4.6.6
+  dio: ^5.4.3+1
   image_picker: ^1.1.2  # Capture images from camera/gallery
   image: ^4.5.4   # Image resizing/compression
   hive: ^2.2.3    # Caching processed images
   hive_flutter: ^1.1.0    # Caching processed images
   flutter_isolate: ^2.1.0   # Multi-threading for heavy tasks
+  shared_preferences: ^2.2.2
+  jwt_decoder: ^2.0.1
+  json_serializable: ^6.7.1
 
   # --- Location & Maps
   geolocator: ^14.0.0   # GPS coordinates for drone scans
@@ -61,6 +64,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^5.0.0
+  build_runner: ^2.4.8
 
 
 # The following section is specific to Flutter packages.
