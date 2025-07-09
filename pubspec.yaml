@@ -57,6 +57,7 @@ dependencies:
   percent_indicator: ^4.2.5
   image_cropper: ^9.1.0
   flutter_markdown: ^0.7.7+1
+  json_annotation: ^4.9.0
 
 
 dev_dependencies:

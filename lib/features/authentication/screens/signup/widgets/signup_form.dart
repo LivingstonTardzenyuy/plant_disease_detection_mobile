@@ -16,7 +16,7 @@ class SignUpForm extends StatelessWidget {
     // Instantiate the controller. Get.put() ensures it's created and available.
     // If you're using Get.find() elsewhere for this controller, ensure it's put somewhere higher up.
     // For a form, Get.put() here is often fine as it's scoped to this widget's lifecycle.
-    final SignUpController controller = Get.put(SignUpController());
+    final SignUpController controller = Get.find<SignUpController>();
 
     final dark = THelperFunctions.isDarkMode(context);
 
@@ -162,13 +162,19 @@ class SignUpForm extends StatelessWidget {
 
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
-              onPressed: controller.signup, // Call the signup method from the controller
-              child: Obx(() => controller.authController.isLoading.value
+            child: Obx(() => ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                disabledBackgroundColor: TColors.primary.withValues(alpha: 0.7),
+              ),
+              onPressed: controller.authController.isLoading.value // Observe isLoading from AuthController
+                  ? null // Disable button when loading
+                  : controller.signup, // Call the signIn method from the LoginController
+              child: controller.authController.isLoading.value
                   ? const CircularProgressIndicator(color: Colors.white)
-                  : const Text(TTexts.createAccount)),
-            ),
+                  : const Text(TTexts.createAccount),
+            )),
           ),
+
         ],
       ),
     );

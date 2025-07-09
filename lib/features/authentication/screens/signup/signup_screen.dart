@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/login_signup/form_divider.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/login_signup/social_buttons.dart';
+import 'package:plant_disease_detection_mobile/features/authentication/controllers/signup_controller.dart';
 import 'package:plant_disease_detection_mobile/features/authentication/screens/signup/widgets/signup_form.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/sizes.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/text_strings.dart';
@@ -11,6 +12,7 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SignUpController controller = Get.put(SignUpController());
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(

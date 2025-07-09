@@ -34,8 +34,9 @@ class AuthController extends GetxController {
     try {
       Get.log('Fetching user profile...');
       final userData = await _authService.fetchUserProfile();
+      Get.log('User profile fetched: $userData');
       currentUser.value = UserModel.fromJson(userData);
-      Get.log('User profile fetched and set: ${currentUser.value?.email}');
+      Get.log('User profile fetched and set: ${currentUser.value?.username}');
     } catch (e) {
       Get.log('Failed to fetch user profile: $e');
       // If profile fetch fails, it might indicate an invalid token
@@ -63,7 +64,7 @@ class AuthController extends GetxController {
       // currentUser.value = UserModel.fromJson(data['user']);
       await _fetchAndSetUserProfile();
       Get.log('Login successful for user: $username. Navigating to home.');
-      Get.offAllNamed('/home'); // Navigate on success
+      Get.offAllNamed('/nav-menu'); // Navigate on success
       Get.snackbar(
         'Success',
         'Welcome back!',

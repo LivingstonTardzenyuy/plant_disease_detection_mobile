@@ -13,12 +13,10 @@ void main() async {
   await GetStorage.init(); // Initialize storage
   await SharedPreferences.getInstance(); // Ensure shared_preferences is ready
   Get.put(ThemeController()); // Inject the theme controller
-  final authController = Get.put(
-    AuthController(),
-  ); // Inject AuthController globally
+  Get.put(AuthController());
   runApp(const App());
-  // Call checkLoginStatus after the first frame so GetMaterialApp is ready
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    authController.checkLoginStatus();
-  });
+  // // Call checkLoginStatus after the first frame so GetMaterialApp is ready
+  // WidgetsBinding.instance.addPostFrameCallback((_) {
+  //   authController.checkLoginStatus();
+  // });
 }

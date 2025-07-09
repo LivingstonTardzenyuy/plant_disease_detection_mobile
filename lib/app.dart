@@ -21,7 +21,7 @@ class App extends StatelessWidget {
       themeMode: themeController.themeMode.value,
       theme: TAppTheme.lightTheme,
       darkTheme: TAppTheme.darkTheme,
-      initialRoute: '/login',
+      initialRoute: '/nav-menu',
       getPages: [
         GetPage(name: '/login', page: () => const LoginScreen()),
         GetPage(name: '/nav-menu', page: () => const NavigationMenu()),

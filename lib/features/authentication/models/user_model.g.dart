@@ -14,7 +14,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
   lastName: json['last_name'] as String,
   profileId: (UserModel._readProfileId(json, 'profile_id') as num?)?.toInt(),
   phoneNumber: UserModel._readPhoneNumber(json, 'phone_number') as String?,
-  avatarUrl: UserModel._readAvatar(json, 'avatar') as String?,
+  avatarUrl: UserModel._readAvatar(json, 'avatar_url') as String?,
 );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -25,5 +25,5 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
   'last_name': instance.lastName,
   if (instance.profileId case final value?) 'profile_id': value,
   if (instance.phoneNumber case final value?) 'phone_number': value,
-  if (instance.avatarUrl case final value?) 'avatar': value,
+  if (instance.avatarUrl case final value?) 'avatar_url': value,
 };
