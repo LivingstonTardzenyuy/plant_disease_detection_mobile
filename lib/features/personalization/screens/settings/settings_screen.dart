@@ -6,20 +6,17 @@ import 'package:plant_disease_detection_mobile/common/widgets/custom_shapes/cont
 import 'package:plant_disease_detection_mobile/common/widgets/list_tile/profile_list_tile.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/list_tile/settings_menu_tile.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/texts/section_heading.dart';
-import 'package:plant_disease_detection_mobile/features/authentication/controllers/auth_controller.dart';
-import 'package:plant_disease_detection_mobile/features/personalization/screens/address/user_address_screen.dart';
+import 'package:plant_disease_detection_mobile/features/personalization/controllers/settings_controller.dart';
 import 'package:plant_disease_detection_mobile/features/personalization/screens/profile/profile_screen.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/colors.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/sizes.dart';
-import 'package:plant_disease_detection_mobile/utils/theme/theme_controller.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final themeController = Get.find<ThemeController>();
-    final authController = Get.find<AuthController>();
+    final SettingsController controller = Get.put(SettingsController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -124,8 +121,8 @@ class SettingsScreen extends StatelessWidget {
                     subTitle: 'Reduce eye strain & save battery at night',
                     trailing: Obx(
                       () => Switch(
-                        value: themeController.isDarkMode,
-                        onChanged: themeController.toggleTheme,
+                        value: controller.themeController.isDarkMode,
+                        onChanged: controller.themeController.toggleTheme,
                         activeColor: TColors.primary,
                       ),
                     ),
@@ -156,7 +153,7 @@ class SettingsScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () => authController.logoutUser(),
+                      onPressed: () => controller.authController.logoutUser(),
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(color: Colors.red),
                       ),

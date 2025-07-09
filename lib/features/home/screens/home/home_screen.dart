@@ -7,6 +7,7 @@ import 'package:plant_disease_detection_mobile/common/widgets/appbar/appbar.dart
 import 'package:plant_disease_detection_mobile/common/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/reports/phone_report_card.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/texts/section_heading.dart';
+import 'package:plant_disease_detection_mobile/features/home/controllers/home/home_controller.dart';
 import 'package:plant_disease_detection_mobile/features/home/models/news_item.dart';
 import 'package:plant_disease_detection_mobile/features/home/screens/home/widgets/quick_action_button.dart';
 import 'package:plant_disease_detection_mobile/features/home/screens/home/widgets/status_card.dart';
@@ -23,6 +24,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController controller = Get.put(HomeController());
     List<NewsItem> news = [
       NewsItem(
         imageUrl:
@@ -85,7 +87,7 @@ class HomeScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Welcome back, Josue!',
+                          'Welcome back, ${controller.authController.userProfile.value!.firstName}!',
                           style: Theme.of(context).textTheme.headlineSmall!
                               .apply(color: TColors.white),
                         ),
@@ -196,7 +198,7 @@ class HomeScreen extends StatelessWidget {
                       // Show max 3 items,
                       itemBuilder: (_, index) {
                         final PhoneScanReportModel report =
-                        PhoneReportService.reports[index];
+                            PhoneReportService.reports[index];
                         return Padding(
                           padding: EdgeInsets.only(
                             bottom: TSizes.spaceBtwItems,
@@ -205,9 +207,9 @@ class HomeScreen extends StatelessWidget {
                             onTap:
                                 () => Get.to(
                                   () => PhoneDetailedDiagnosticReportScreen(
-                                report: report,
-                              ),
-                            ),
+                                    report: report,
+                                  ),
+                                ),
                             child: PhoneReportCard(report: report),
                           ),
                         );

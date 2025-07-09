@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:plant_disease_detection_mobile/common/widgets/images/circular_image.dart';
+import 'package:plant_disease_detection_mobile/features/authentication/controllers/auth_controller.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/colors.dart';
 import 'package:plant_disease_detection_mobile/utils/constants/image_strings.dart';
 
@@ -13,6 +15,7 @@ class TUserProfileTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthController authController = Get.find<AuthController>();
     return ListTile(
       leading: TCircularImage(
         image: TImages.user1,
@@ -21,13 +24,13 @@ class TUserProfileTitle extends StatelessWidget {
         padding: 0,
       ),
       title: Text(
-        "Signe Josue",
+        "${authController.userProfile.value!.firstName} ${authController.userProfile.value!.lastName}",
         style: Theme.of(context).textTheme.headlineSmall!.apply(
           color: TColors.white,
         ),
       ),
       subtitle: Text(
-        "signeemmenuel28@gmail.com",
+        authController.userProfile.value!.email,
         style: Theme.of(context).textTheme.bodyMedium!.apply(
           color: TColors.white,
         ),
