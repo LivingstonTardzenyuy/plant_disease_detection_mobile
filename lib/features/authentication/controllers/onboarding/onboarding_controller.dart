@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:plant_disease_detection_mobile/features/authentication/screens/login/login_screen.dart';
-
+import 'package:get_storage/get_storage.dart';
 
 class OnBoardingController extends GetxController {
   static OnBoardingController get instance => Get.find();
@@ -24,7 +24,7 @@ class OnBoardingController extends GetxController {
   /// --- Update current index and jump to next page
   void nextPage() {
     if (currentPageIndex.value == 1) {
-      Get.offAll(LoginScreen());
+      completeOnboarding();
     } else {
       currentPageIndex.value = currentPageIndex.value + 1;
       pageController.jumpToPage(currentPageIndex.value);
@@ -35,5 +35,12 @@ class OnBoardingController extends GetxController {
   void skipPage() {
     currentPageIndex.value = 1;
     pageController.jumpToPage(1);
+    completeOnboarding();
+  }
+
+  void completeOnboarding() {
+    final box = GetStorage();
+    box.write('isOnboarded', true);
+    Get.offAll(LoginScreen());
   }
 }
